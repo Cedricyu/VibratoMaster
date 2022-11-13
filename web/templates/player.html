@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>music project</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="style" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<style>
+img{
+
+
+  object-fit: cover;
+  width: 100%;
+}
+a { color: inherit; }
+
+div.element {
+	padding:1.5rem;
+
+}
+
+
+</style>
+<body>
+  
+  <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="./">home</a>
+      </li>
+
+
+    </ul>
+  </nav>
+
+
+
+
+ <div class="container text-center">
+
+
+	 <h1>{{ set_name }}</h1>
+
+
+	  <div class="row element">
+		  <div class="col">
+				<label for="customRange3" class="form-label">parameter1</label>
+				<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+		  </div>
+	  </div>
+
+	  <div class="row element">
+		  <div class="col">
+				<label for="customRange3" class="form-label">parameter2</label>
+				<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+		  </div>
+	  </div>
+
+	  <div class="row element">
+		  <div class="col">
+				<label for="customRange3" class="form-label">parameter3</label>
+				<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+		  </div>
+	  </div>
+
+
+	  <div class="row element">
+		  <div class="col">
+				<label for="customRange3" class="form-label">parameter4</label>
+				<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+		  </div>
+	  </div>
+
+	  <div class="row element">
+		  <div class="col">
+				<label for="customRange3" class="form-label">volume</label>
+				<input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+		  </div>
+	  </div>
+
+
+	  <hr class="my-4">
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+</div>
+
+	  <hr class="my-4">
+
+		<button type="button" class="btn btn-danger" id = "play_button">Play</button>
+
+	  </div>
+
+
+
+
+
+
+<!--
+    <img src="{{ url_for('static', filename='img/player.png') }}">
+-->
+
+
+
+  </div>
+
+
+</body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
+
+
+<script>
+	/*
+	var playButtonElement = document.getElementById("play_button");
+	playButtonElement.addEventListener("click", function() {
+        var audio = document.getElementById("audio");
+        audio.play();
+	});
+
+
+      function play() {
+      }
+*/
+
+</script>
+
+
+
+
