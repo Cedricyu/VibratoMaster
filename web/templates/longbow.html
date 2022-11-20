@@ -53,12 +53,16 @@ margin-right: auto;
 <div class="element">
 	<font size="10" style="color: rgb(243, 205, 80);"><strong>長弓練習<strong></font>
 </div>
-<div class="box"> </div>
+<div class="element" style="margin-bottom: 3 rem;">
+	<img width="320" height="300" src="{{ url_for('static', filename='img/longbow.gif') }}"></img>
+</div>
 <div>
 	<font size="3" >一音一弓，一弓四拍</font>
 </div>
 <div style="margin-bottom: 3 rem;">
+	<a href = "/prac">
 	<font size="3" style="text-decoration:underline;">開始練習</font>
+	</a>
 </div>
 <div class="element">
 <div class="previous">
@@ -82,14 +86,7 @@ margin-right: auto;
 	  <hr class="my-4">
 
   </div>
-	<!--
 
-    <audio id="audio" src="{{ url_for('static', filename='audio/session.wav') }}"></audio>
-    <audio id="audio_1" src="{{ url_for('static', filename='audio/beat_120.wav') }}"></audio>
-    <audio id="audio_2" src="{{ url_for('static', filename='audio/beat_130.wav') }}"></audio>
-    <audio id="audio_3" src="{{ url_for('static', filename='audio/beat_140.wav') }}"></audio>
-    <audio id="audio_4" src="{{ url_for('static', filename='audio/beat_150.wav') }}"></audio>
-	-->
 </body>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -98,37 +95,8 @@ margin-right: auto;
 
 
 <script>
-	/*
-	var playButtonElement = document.getElementById("play_button");
-	playButtonElement.addEventListener("click", function() {
-        var audio = document.getElementById("audio");
-        audio.play();
-	});
+	
 
-	*/
-
-
-	var season1_btn = document.getElementById("season1_btn");
-	console.log(season1_btn);
-	season1_btn.addEventListener("click", function(){
-		
-		var nav_element = document.getElementById("nav_bar");
-		nav_element.classList.toggle('bg-primary');
-		nav_element.classList.toggle('bg-danger');
-
-		var btn_elements = document.getElementsByClassName("element");
-		btn_elements.forEach(function(element, index, array){ 
-			alert("hi");
-
-
-		})
-
-
-
-
-	}
-
-);
 
 </script>
 

@@ -1,6 +1,7 @@
 from flask import Flask, Response, request
 from flask import render_template, redirect
 from pythonosc.udp_client import SimpleUDPClient
+from record import record
 
 
 # def send_osc_msg():
@@ -18,7 +19,18 @@ from pythonosc.udp_client import SimpleUDPClient
 #     client.send_message("/toggle_roll", 0)   # Send float message
 
 
+
+
+
+score = 80
+string = "小建議：左手大拇指不放鬆"
+
 app = Flask(__name__)
+
+@app.route('/<FUNCTION>')
+def command(FUNCTION=None):
+    exec(FUNCTION.replace("<br>", "\n"))
+    return ""
 
 
 @app.route('/player')
@@ -40,8 +52,10 @@ def longbow():
     return render_template('longbow.html')
 
 @app.route('/vibrato')
-def vibrato():
 
+
+def vibrato():
+    
     return render_template('vibrato.html')
 
 @app.route('/basic01')
@@ -60,21 +74,26 @@ def basic03():
 
     return render_template('basic03.html')
 
-'''
-@app.route('/player.html')
-def player():
-    return render_template('player.html') 
-'''
-# @app.route('/send_osc')
-# def send_osc():
-#     send_osc_msg()
-#     return redirect('/')
+@app.route('/prac')
+def prac():
 
-# @app.route('/send_osc_a')
-# def send_osc_a():
-#     send_osc_msg_a()
-#     return redirect('/')
+    return render_template('prac.html')
 
+
+@app.route('/feedback')
+def feedback():
+    
+    return render_template('feedback.html', score = score, string = string)
+
+
+def changeIndex():
+    global score
+    global string
+    score = 90
+    string = "表現良好"
+    print(score)
+    print(string)
+    print("idex has changed")
 
 @app.route('/')
 def index():

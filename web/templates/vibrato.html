@@ -59,11 +59,15 @@ margin-right: auto;
 </div>
 <div class="container text-right" style="padding: 40px; margin-bottom: 20px;">
 	<div>
+		<button  type="button" onclick="ExecPythonCommand('changeIndex()')">
 		<font size="3" style="text-decoration:underline; text-align:right">開始練習</font>
+		</button>
 	</div>
 	<div>
+		<a href = "/feedback">
 		<font size="3" style="text-decoration:underline; text-align:right">查看回饋
 		</font>
+		</a>
 	</div>
 </div>
 <div class="previous" style="padding:1 rem;">
@@ -71,30 +75,8 @@ margin-right: auto;
 	<!-- <a href="/player?set=3"><img src="{{ url_for('static', filename='img/3.png') }}"></a> -->
 </div>
 
-
-	<!--
-	<a href="player.html"><img src="{{ url_for('static', filename='img/4.png') }}"></a>
-	-->
-
-	<!--
-
-    <img src="{{ url_for('static', filename='img/1.png') }}">
-    <img src="{{ url_for('static', filename='img/2.png') }}">
-    <img src="{{ url_for('static', filename='img/3.png') }}">
-
-	-->
-
 	  <hr class="my-4">
 
-
-	<!--
-
-    <audio id="audio" src="{{ url_for('static', filename='audio/session.wav') }}"></audio>
-    <audio id="audio_1" src="{{ url_for('static', filename='audio/beat_120.wav') }}"></audio>
-    <audio id="audio_2" src="{{ url_for('static', filename='audio/beat_130.wav') }}"></audio>
-    <audio id="audio_3" src="{{ url_for('static', filename='audio/beat_140.wav') }}"></audio>
-    <audio id="audio_4" src="{{ url_for('static', filename='audio/beat_150.wav') }}"></audio>
-	-->
 </body>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -103,37 +85,11 @@ margin-right: auto;
 
 
 <script>
-	/*
-	var playButtonElement = document.getElementById("play_button");
-	playButtonElement.addEventListener("click", function() {
-        var audio = document.getElementById("audio");
-        audio.play();
-	});
-
-	*/
-
-
-	var season1_btn = document.getElementById("season1_btn");
-	console.log(season1_btn);
-	season1_btn.addEventListener("click", function(){
-		
-		var nav_element = document.getElementById("nav_bar");
-		nav_element.classList.toggle('bg-primary');
-		nav_element.classList.toggle('bg-danger');
-
-		var btn_elements = document.getElementsByClassName("element");
-		btn_elements.forEach(function(element, index, array){ 
-			alert("hi");
-
-
-		})
-
-
-
-
-	}
-
-);
+	function ExecPythonCommand(pythonCommand){
+    var request = new XMLHttpRequest()
+    request.open("GET", "/" + pythonCommand, true)
+    request.send()
+}
 
 </script>
 
