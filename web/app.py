@@ -3,6 +3,8 @@ from flask import render_template, redirect
 from pythonosc.udp_client import SimpleUDPClient
 from record import record
 
+import WavePattern 
+
 
 # def send_osc_msg():
 
