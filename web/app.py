@@ -4,6 +4,8 @@ from pythonosc.udp_client import SimpleUDPClient
 from record import record
 
 import WavePattern 
+import linReg
+import HarmRatioClf
 
 
 # def send_osc_msg():
