@@ -151,7 +151,8 @@ def linR():
 
     f0_test = [i for i in f0_test if (i > true_pitch_test - 20 and i < true_pitch_test + 20)]
     f0_test = np.array(f0_test)
-
+    
+    
     """
     pos = 0
     chunk = []
@@ -181,12 +182,14 @@ def linR():
     regr = linear_model.LinearRegression()
     regr.fit(mu_test.reshape(-1,1), sigma_test)
     """
-
-    res = f0_test.std() - regr.predict([[f0_test.mean()]])
-    if abs(res) < 0.5:
-        print("Good")
+    if len(f0_test) == 0:
+        print("Invalid input. Please try again.")
     else:
-        print("Thumb")
+        res = f0_test.std() - regr.predict([[f0_test.mean()]])
+        if abs(res) < 0.5:
+            print("Good")
+        else:
+            print("Thumb")
 #----------------------------------------------------------------------
 
 
