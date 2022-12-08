@@ -292,101 +292,104 @@ def hrc():
     f0_test = [i for i in f0_test if (i > 0)]
     f0_test = np.array(f0_test)
     f0_test = f0_test[~np.isnan(f0_test)]
+    
+    if len(f0_test) == 0:
+        print("Invalid input. Please try again.")
+    else:
+        f0_note = [] # to note (A4-A5)
+        for i in range(len(f0_test)):
+            f0_note.append(librosa.hz_to_note(f0_test[i]))
 
-    f0_note = [] # to note (A4-A5)
-    for i in range(len(f0_test)):
-        f0_note.append(librosa.hz_to_note(f0_test[i]))
+        note_cnt = np.array([0,0,0,0,0,0,0,0]) # A4 B4 C5 D5 E5 F5 G#5 A5
+        for i in range(len(f0_note)):
+            if(f0_note[i] == 'A4'):
+                note_cnt[0]+=1
+            elif(f0_note[i] == 'B4'):
+                note_cnt[1]+=1
+            elif(f0_note[i] == 'C5'):
+                note_cnt[2]+=1
+            elif(f0_note[i] == 'D5'):
+                note_cnt[3]+=1
+            elif(f0_note[i] == 'E5'):
+                note_cnt[4]+=1
+            elif(f0_note[i] == 'F5'):
+                note_cnt[5]+=1
+            elif(f0_note[i] == 'G♯5'):
+                note_cnt[6]+=1
+            elif(f0_note[i] == 'A5'):
+                note_cnt[7]+=1
 
-    note_cnt = np.array([0,0,0,0,0,0,0,0]) # A4 B4 C5 D5 E5 F5 G#5 A5
-    for i in range(len(f0_note)):
-        if(f0_note[i] == 'A4'):
-            note_cnt[0]+=1
-        elif(f0_note[i] == 'B4'):
-            note_cnt[1]+=1
-        elif(f0_note[i] == 'C5'):
-            note_cnt[2]+=1
-        elif(f0_note[i] == 'D5'):
-            note_cnt[3]+=1
-        elif(f0_note[i] == 'E5'):
-            note_cnt[4]+=1
-        elif(f0_note[i] == 'F5'):
-            note_cnt[5]+=1
-        elif(f0_note[i] == 'G♯5'):
-            note_cnt[6]+=1
-        elif(f0_note[i] == 'A5'):
-            note_cnt[7]+=1
+        true_note = np.argmax(note_cnt)
+        if(true_note == 0):
+            true_pitch = librosa.note_to_hz('A4')
+        elif(true_note == 1):
+            true_pitch = librosa.note_to_hz('B4')
+        elif(true_note == 2):
+            true_pitch = librosa.note_to_hz('C5')
+        elif(true_note == 3):
+            true_pitch = librosa.note_to_hz('D5')
+        elif(true_note == 4):
+            true_pitch = librosa.note_to_hz('E5')
+        elif(true_note == 5):
+            true_pitch = librosa.note_to_hz('F5')
+        elif(true_note == 6):
+            true_pitch = librosa.note_to_hz('G♯5')
+        elif(true_note == 7):
+            true_pitch = librosa.note_to_hz('A5')
 
-    true_note = np.argmax(note_cnt)
-    if(true_note == 0):
-        true_pitch = librosa.note_to_hz('A4')
-    elif(true_note == 1):
-        true_pitch = librosa.note_to_hz('B4')
-    elif(true_note == 2):
-        true_pitch = librosa.note_to_hz('C5')
-    elif(true_note == 3):
-        true_pitch = librosa.note_to_hz('D5')
-    elif(true_note == 4):
-        true_pitch = librosa.note_to_hz('E5')
-    elif(true_note == 5):
-        true_pitch = librosa.note_to_hz('F5')
-    elif(true_note == 6):
-        true_pitch = librosa.note_to_hz('G♯5')
-    elif(true_note == 7):
-        true_pitch = librosa.note_to_hz('A5')
+        f0_test = [i for i in f0_test if (i > true_pitch - 20 and i < true_pitch + 20)]
+        f0_test = np.array(f0_test)
 
-    f0_test = [i for i in f0_test if (i > true_pitch - 20 and i < true_pitch + 20)]
-    f0_test = np.array(f0_test)
-
-    label_test = ('Good')
-    #------------------------------------
-
-
-
-    # delete idx +-1200 for max
-    fund_test = np.array([[0, 0, 0]]) # f0 [pitch, amp, index]
-    harm_test = np.array([[0, 0, 0]]) # harmonics [pitch, amp, index]
+        label_test = ('Good')
+        #------------------------------------
 
 
-    # get f0, it's possible that the harmonic is greater than f0
-    # len(xf) & len(yf)=66151, max(xf)~=11025.0, 1 Hz occupies about 6 elements
-    xf_tmp = np.array(xf_test)
-    yf_tmp = np.array(yf_test)
-    idx = np.argmax(yf_test)
 
-    # f0 must < 900
-    while (xf_test[idx] > 900):
-        for j in range(idx-1200, idx+1200):
-            xf_tmp[j] = 0
-            yf_tmp[j] = 0
-        idx = np.argmax(yf_tmp)
-
-    #re_idx = np.where(xf[i] == xf[i])
-    fund_test = np.append(fund_test, [[ xf_test[idx],yf_test[idx], idx ]], axis=0)
-
-    # delete the 1st row
-    fund_test = np.delete(fund_test, 0, axis=0)
+        # delete idx +-1200 for max
+        fund_test = np.array([[0, 0, 0]]) # f0 [pitch, amp, index]
+        harm_test = np.array([[0, 0, 0]]) # harmonics [pitch, amp, index]
 
 
-    # get the next 5 harmonics & their amplitude
-    for i in range(5):
-        idx = int(fund_test[0][2]) * (i+2)
-        harm_test = np.append(harm_test, [[ xf_test[idx], yf_test[idx], idx ]], axis=0)
-    # delete the 1st row
-    harm_test = np.delete(harm_test, 0, axis=0)
+        # get f0, it's possible that the harmonic is greater than f0
+        # len(xf) & len(yf)=66151, max(xf)~=11025.0, 1 Hz occupies about 6 elements
+        xf_tmp = np.array(xf_test)
+        yf_tmp = np.array(yf_test)
+        idx = np.argmax(yf_test)
 
-    seq_test = np.array([[ fund_test[0][1], harm_test[0][1], harm_test[1][1], 
-                                harm_test[2][1], harm_test[3][1], harm_test[4][1] ]])
+        # f0 must < 900
+        while (xf_test[idx] > 900):
+            for j in range(idx-1200, idx+1200):
+                xf_tmp[j] = 0
+                yf_tmp[j] = 0
+            idx = np.argmax(yf_tmp)
+
+        #re_idx = np.where(xf[i] == xf[i])
+        fund_test = np.append(fund_test, [[ xf_test[idx],yf_test[idx], idx ]], axis=0)
+
+        # delete the 1st row
+        fund_test = np.delete(fund_test, 0, axis=0)
 
 
-    # Normalize
-    for i in range(6):
-        seq_test[0][i] /= min(seq_test[0])
+        # get the next 5 harmonics & their amplitude
+        for i in range(5):
+            idx = int(fund_test[0][2]) * (i+2)
+            harm_test = np.append(harm_test, [[ xf_test[idx], yf_test[idx], idx ]], axis=0)
+        # delete the 1st row
+        harm_test = np.delete(harm_test, 0, axis=0)
 
-    for i in range(6):
-            seq_test[0][i] = 20*np.log10(seq_test[0][i])
+        seq_test = np.array([[ fund_test[0][1], harm_test[0][1], harm_test[1][1], 
+                                    harm_test[2][1], harm_test[3][1], harm_test[4][1] ]])
 
 
-    print(clf.predict(seq_test))
+        # Normalize
+        for i in range(6):
+            seq_test[0][i] /= min(seq_test[0])
+
+        for i in range(6):
+                seq_test[0][i] = 20*np.log10(seq_test[0][i])
+
+
+        print(clf.predict(seq_test))
 #-------------------------------------------------------------------
 
 hrc()
