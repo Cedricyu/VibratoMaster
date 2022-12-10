@@ -23,7 +23,7 @@ def linR():
     mu = []
     sigma = []
 
-    files = librosa.util.find_files("C:/Users/David/Desktop/cmat/VibratoMaster/web/Good",
+    files = librosa.util.find_files("Good",
                                     ext=['wav']) 
     files = np.asarray(files)  
 
@@ -100,7 +100,7 @@ def linR():
 
 
     #-------------------------------------------------------------------------------------------------------
-    y_test, sr_test = librosa.load('C:/Users/David/Desktop/cmat/VibratoMaster/web/Good_test/A4_Good_2.wav')
+    y_test, sr_test = librosa.load('Good_test/A4_Good_2.wav')
     f0_test, voiced_flag_test, voiced_probs_test = librosa.pyin(y_test, 
     fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
 
