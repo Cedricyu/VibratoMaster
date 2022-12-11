@@ -17,7 +17,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
-
+from random import random
 import matplotlib.pyplot as plt
 # cancel scientific notation
 np.set_printoptions(suppress=True)
@@ -389,6 +389,7 @@ def hrc():
 
 
         print(clf.predict(seq_test))
+        return round(random(), 2)
 #-------------------------------------------------------------------
 
 
