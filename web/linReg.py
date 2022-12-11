@@ -180,12 +180,14 @@ def linR():
     """
     if len(f0_test) == 0:
         print("Invalid input. Please try again.")
+        return 0
     else:
         res = f0_test.std() - regr.predict([[f0_test.mean()]])
         if abs(res) < 0.5:
             print("Good")
         else:
             print("Thumb")
+        return res
 #----------------------------------------------------------------------
 
 
