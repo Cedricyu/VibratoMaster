@@ -28,6 +28,8 @@ import HarmRatioClf
 
 score = 80
 string = "加油"
+scoreLin = 70
+socreHarm = 70
 
 app = Flask(__name__)
 
@@ -87,8 +89,14 @@ def prac():
 @app.route('/feedback')
 def feedback():
     global score
+    global scoreLin
+    global scoreHarm
+
     score = WavePattern.test()
-    return render_template('feedback.html', score = score, string = string)
+    scoreLin = linReg.linR()
+    scoreHarm = HarmRatioClf.hrc()
+	
+    return render_template('feedback.html', score = score, string = string, scoreLin = scoreLin, scoreHarm = scoreHarm)
 
 
 def changeIndex():
