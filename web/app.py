@@ -27,7 +27,7 @@ import HarmRatioClf
 
 
 score = 80
-string = "小建議：左手大拇指不放鬆"
+string = "加油"
 
 app = Flask(__name__)
 
@@ -86,7 +86,8 @@ def prac():
 
 @app.route('/feedback')
 def feedback():
-    
+    global score
+    score = WavePattern.test()
     return render_template('feedback.html', score = score, string = string)
 
 

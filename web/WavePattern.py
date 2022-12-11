@@ -878,7 +878,8 @@ def test():
     # lib_col.append(count/len(newarray))
     # lib_heigh.append(relation)
     # plt.show()
-test()
+    return random.randint(0, 100)
+
 # In[ ]:
 
 
