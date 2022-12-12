@@ -26,7 +26,7 @@ import HarmRatioClf
 
 
 
-score = 80
+scoreWav = 80
 string = "加油"
 scoreLin = 70
 socreHarm = 70
@@ -88,15 +88,21 @@ def prac():
 
 @app.route('/feedback')
 def feedback():
-    global score
+    global scoreWav
     global scoreLin
     global scoreHarm
 
-    score = WavePattern.test()
-    scoreLin = linReg.linR()
-    scoreHarm = HarmRatioClf.hrc()
+    # scoreWav = WavePattern.test()
+    # scoreLin = linReg.linR()
+    # scoreHarm = HarmRatioClf.hrc()
+    scoreWav = 0
+    scoreLin = 0
+    scoreHarm = 0
 	
-    return render_template('feedback.html', score = score, string = string, scoreLin = scoreLin, scoreHarm = scoreHarm)
+    if(scoreWav + scoreHarm + scoreLin < 100 ):
+        return render_template('good.html')
+
+    return render_template('feedback.html', score = scoreWav, scoreLin = scoreLin, scoreHarm = scoreHarm)
 
 
 def changeIndex():

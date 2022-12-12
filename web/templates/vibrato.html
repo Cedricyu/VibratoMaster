@@ -52,14 +52,14 @@ margin-right: auto;
 <div class="element">
 	<font size="10" style="color: rgb(243, 205, 80);"  face="monospace"><strong>抖音練習</strong></font>
 </div>
-<img width="320" height="300" src="{{ url_for('static', filename='img/longbow2.gif') }}"></img>
+<img width="320" height="300" src="{{ url_for('static', filename='img/A4.jpg') }}" id = "hiddenimageid"></img>
 <div>
 	<font size="3" >一音一弓，一弓四拍</font>
 </div>
 </div>
 <div class="container text-right" style="padding: 40px; margin-bottom: 20px;">
 	<div>
-		<button  type="button" onclick="ExecPythonCommand('record()')">
+		<button  type="button" onclick="ExecPythonCommand('record()') ; start_play()">
 		<font size="3" style="text-decoration:underline; text-align:right">開始練習</font>
 		</button>
 	</div>
@@ -91,5 +91,13 @@ margin-right: auto;
     request.send()
 }
 
+
+var animations ="{{ url_for('static', filename='img/longbow2.gif') }}";
+
+function start_play() {
+  image = document.getElementById('hiddenimageid');
+  image.src = animations;
+ 
+}
 </script>
 

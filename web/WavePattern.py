@@ -713,171 +713,186 @@ neigh.fit(X, Y.values.ravel())
 
 
 def test():
-    y = []
-    sr = []
-    t = []
-    N = []
-    xf = []
-    yf = []
-    mu = []
+    # y = []
+    # sr = []
+    # t = []
+    # N = []
+    # xf = []
+    # yf = []
+    # mu = []
 
-
+    from octave import scale
     # files = np.asarray(files)  
-
+    print("scale = ", scale)
     #print(files)
 
     
         
-    y_tmp, sr_tmp = librosa.load("Good_test/A4_Good_2.wav")
-    f0_tmp, voiced_flag_tmp, voiced_probs_tmp = librosa.pyin(y_tmp, 
-    fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
+    # y_tmp, sr_tmp = librosa.load("Good_test/A4_Good_2.wav")
+    # f0_tmp, voiced_flag_tmp, voiced_probs_tmp = librosa.pyin(y_tmp, 
+    # fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
 
 
-    y.append(y_tmp)
-    sr.append(sr_tmp)
+    # y.append(y_tmp)
+    # sr.append(sr_tmp)
     
-    t_tmp = librosa.get_duration(y=y_tmp,sr=sr_tmp)
-    t_tmp = int(t_tmp)
-    t.append(t_tmp)
+    # t_tmp = librosa.get_duration(y=y_tmp,sr=sr_tmp)
+    # t_tmp = int(t_tmp)
+    # t.append(t_tmp)
 
-    N_tmp = sr_tmp * t_tmp
-    N.append(N_tmp)
+    # N_tmp = sr_tmp * t_tmp
+    # N.append(N_tmp)
 
-    y_tmp = np.real(rfft(y_tmp))
-    yf.append(np.abs(y_tmp))
+    # y_tmp = np.real(rfft(y_tmp))
+    # yf.append(np.abs(y_tmp))
     
-    xf.append(rfftfreq(N_tmp,1/sr_tmp))
+    # xf.append(rfftfreq(N_tmp,1/sr_tmp))
 
 
-    # --------------------------------------
-    f0_tmp = [i for i in f0_tmp if (i > 0)]
-    f0_tmp = np.array(f0_tmp)
-    f0_tmp = f0_tmp[~np.isnan(f0_tmp)]
+    # # --------------------------------------
+    # f0_tmp = [i for i in f0_tmp if (i > 0)]
+    # f0_tmp = np.array(f0_tmp)
+    # f0_tmp = f0_tmp[~np.isnan(f0_tmp)]
     
-    f0_note = [] # to note (A4-A5)
-    for i in range(len(f0_tmp)):
-        f0_note.append(librosa.hz_to_note(f0_tmp[i]))
+    # f0_note = [] # to note (A4-A5)
+    # for i in range(len(f0_tmp)):
+    #     f0_note.append(librosa.hz_to_note(f0_tmp[i]))
 
-    note_cnt = np.array([0,0,0,0,0,0,0,0]) # A4 B4 C5 D5 E5 F5 G#5 A5
-    for i in range(len(f0_note)):
-        if(f0_note[i] == 'A4'):
-            note_cnt[0]+=1
-        elif(f0_note[i] == 'B4'):
-            note_cnt[1]+=1
-        elif(f0_note[i] == 'C5'):
-            note_cnt[2]+=1
-        elif(f0_note[i] == 'D5'):
-            note_cnt[3]+=1
-        elif(f0_note[i] == 'E5'):
-            note_cnt[4]+=1
-        elif(f0_note[i] == 'F5'):
-            note_cnt[5]+=1
-        elif(f0_note[i] == 'G♯5'):
-            note_cnt[6]+=1
-        elif(f0_note[i] == 'A5'):
-            note_cnt[7]+=1
+    # note_cnt = np.array([0,0,0,0,0,0,0,0]) # A4 B4 C5 D5 E5 F5 G#5 A5
+    # for i in range(len(f0_note)):
+    #     if(f0_note[i] == 'A4'):
+    #         note_cnt[0]+=1
+    #     elif(f0_note[i] == 'B4'):
+    #         note_cnt[1]+=1
+    #     elif(f0_note[i] == 'C5'):
+    #         note_cnt[2]+=1
+    #     elif(f0_note[i] == 'D5'):
+    #         note_cnt[3]+=1
+    #     elif(f0_note[i] == 'E5'):
+    #         note_cnt[4]+=1
+    #     elif(f0_note[i] == 'F5'):
+    #         note_cnt[5]+=1
+    #     elif(f0_note[i] == 'G♯5'):
+    #         note_cnt[6]+=1
+    #     elif(f0_note[i] == 'A5'):
+    #         note_cnt[7]+=1
     
-    true_note = np.argmax(note_cnt)
-    if(true_note == 0):
-        true_pitch = librosa.note_to_hz('A4')
-    elif(true_note == 1):
-        true_pitch = librosa.note_to_hz('B4')
-    elif(true_note == 2):
-        true_pitch = librosa.note_to_hz('C5')
-    elif(true_note == 3):
-        true_pitch = librosa.note_to_hz('D5')
-    elif(true_note == 4):
-        true_pitch = librosa.note_to_hz('E5')
-    elif(true_note == 5):
-        true_pitch = librosa.note_to_hz('F5')
-    elif(true_note == 6):
-        true_pitch = librosa.note_to_hz('G♯5')
-    elif(true_note == 7):
-        true_pitch = librosa.note_to_hz('A5')
+    # true_note = np.argmax(note_cnt)
+    # if(true_note == 0):
+    #     true_pitch = librosa.note_to_hz('A4')
+    # elif(true_note == 1):
+    #     true_pitch = librosa.note_to_hz('B4')
+    # elif(true_note == 2):
+    #     true_pitch = librosa.note_to_hz('C5')
+    # elif(true_note == 3):
+    #     true_pitch = librosa.note_to_hz('D5')
+    # elif(true_note == 4):
+    #     true_pitch = librosa.note_to_hz('E5')
+    # elif(true_note == 5):
+    #     true_pitch = librosa.note_to_hz('F5')
+    # elif(true_note == 6):
+    #     true_pitch = librosa.note_to_hz('G♯5')
+    # elif(true_note == 7):
+    #     true_pitch = librosa.note_to_hz('A5')
 
-    f0_tmp = [i for i in f0_tmp if (i > true_pitch - 20 and i < true_pitch + 20)]
-    f0_tmp = np.array(f0_tmp)
+    # f0_tmp = [i for i in f0_tmp if (i > true_pitch - 20 and i < true_pitch + 20)]
+    # f0_tmp = np.array(f0_tmp)
     #print(f0_tmp)
-    count =0 
-    start =0
-    ct = 0
-    maxct =0
-    T = 10
-    for i in range(len(f0_tmp)):
-        if(f0_tmp[i] > f0_tmp[i-1] and f0_tmp[i] > f0_tmp[i-1] ):
-            ct+=1
-            count+=1
-        elif(f0_tmp[i] < f0_tmp[i-1] and f0_tmp[i] < f0_tmp[i-1]):
-            count+=1
-            ct+=1
-        if(i%T==0):
-            if(ct > maxct):
-                maxct = ct
-                start = i-T
-            ct=0
-    x=np.linspace(0,2*np.pi,T)
-    #predict = 3*np.sin(x) + true_pitch
-    tmp = []
-
-    window = []
-    window_size = 5
-    newarray = f0_tmp
-    # plt.plot(newarray)
-    # plt.show()
-    
-    if( T+start > len(newarray)):
-        start -=T
-    if( start < 0 ):
-        start +=T
-    print(start,len(newarray))
-    for i in range(1,T):
-        if(newarray[i+start] > newarray[i+start-1]):
-            window.append(1)
-        else:
-            window.append(-1)
-    slide_value = 0
-    
-    for i in range(T-window_size):
-        slide =0 
-        for j in range(window_size):
-            slide+= window[i+j]
-        window[i] = slide
-    for i in range(1,T-window_size):
-        #print("window ",i," =",window[i], "window ",i,"-1 =", window[i-1])
-        if(window[i] < 0 and window[i-1] > 0):
-            slide_value = i + int(window_size/2)
-    start += slide_value
-    if(start + slide_value+T > len(newarray)):
-        start -= T
-    print("slide_value", slide_value)
-    print("start = ",start)
-    print("window =",window)
-    print("len of array =",len(newarray))
-    for i in range(T):
-        tmp.append(newarray[i+start])
-
-    base = sum(tmp)/len(tmp)
-    amplitude = (np.max(tmp)-np.min(tmp))/2
-    predict = amplitude*np.sin(x + T/4) + base
-    # plt.plot(tmp)
-    # plt.plot(predict)
-    distance = dtw(tmp,predict,window=2)
-    relation = similarity(predict - base,tmp - base)
-    print("dtw = ",distance)
-    
-    print("turn_points = ",count/len(newarray))
-    print("relation = ",relation)
     test = pd.DataFrame(columns =  ["distance", "turn_point", "relation" ,"label"])
-    test = test.append({'distance':distance , 'turn_point':(count/len(newarray)), 'relation' : relation ,'label': 'Wrist' }, ignore_index=True)
-    X_test = test[['distance','turn_point','relation']]
-    print("Xtest = ",X_test)
-    Y_test = test[['label']]
-    print(Y_test)
-    print(neigh.predict(X_test))
-    # lib_row.append(distance)
-    # lib_col.append(count/len(newarray))
-    # lib_heigh.append(relation)
-    # plt.show()
+
+    for i in range(len(scale)):
+        count =0 
+        start =0
+        ct = 0
+        maxct =0
+        T = 10
+        f0_tmp = scale[i]
+        if(len(f0_tmp) == 0):
+            continue
+        for i in range(len(f0_tmp)):
+            if(f0_tmp[i] > f0_tmp[i-1] and f0_tmp[i] > f0_tmp[i-1] ):
+                ct+=1
+                count+=1
+            elif(f0_tmp[i] < f0_tmp[i-1] and f0_tmp[i] < f0_tmp[i-1]):
+                count+=1
+                ct+=1
+            if(i%T==0):
+                if(ct > maxct):
+                    maxct = ct
+                    start = i-T
+                ct=0
+        x=np.linspace(0,2*np.pi,T)
+        #predict = 3*np.sin(x) + true_pitch
+        tmp = []
+
+        window = []
+        window_size = 5
+        newarray = f0_tmp
+        # plt.plot(newarray)
+        # plt.show()
+        
+        if( T+start > len(newarray)):
+            start -=T
+        if( start < 0 ):
+            start +=T
+        print(start,len(newarray))
+        for i in range(1,T):
+            if(newarray[i+start] > newarray[i+start-1]):
+                window.append(1)
+            else:
+                window.append(-1)
+        slide_value = 0
+        
+        for i in range(T-window_size):
+            slide =0 
+            for j in range(window_size):
+                slide+= window[i+j]
+            window[i] = slide
+        for i in range(1,T-window_size):
+            #print("window ",i," =",window[i], "window ",i,"-1 =", window[i-1])
+            if(window[i] < 0 and window[i-1] > 0):
+                slide_value = i + int(window_size/2)
+        start += slide_value
+        if(start + slide_value+T > len(newarray)):
+            start -= T
+        print("slide_value", slide_value)
+        print("start = ",start)
+        print("window =",window)
+        print("len of array =",len(newarray))
+        for i in range(T):
+            tmp.append(newarray[i+start])
+
+        base = sum(tmp)/len(tmp)
+        amplitude = (np.max(tmp)-np.min(tmp))/2
+        predict = amplitude*np.sin(x + T/4) + base
+        # plt.plot(tmp)
+        # plt.plot(predict)
+        distance = dtw(tmp,predict,window=2)
+        relation = similarity(predict - base,tmp - base)
+        print("dtw = ",distance)
+        
+        print("turn_points = ",count/len(newarray))
+        print("relation = ",relation)
+        # test = pd.DataFrame(columns =  ["distance", "turn_point", "relation" ,"label"])
+        test = test.append({'distance':distance , 'turn_point':(count/len(newarray)), 'relation' : relation ,'label': 'Wrist' }, ignore_index=True)
+    
+    if(len(test.index)!= 0):
+        X_test = test[['distance','turn_point','relation']]
+        print("Xtest = ",X_test)
+        Y_test = test[['label']]
+        print("Ytest = ",Y_test)
+        predictions  = neigh.predict(X_test)
+        score = 0 
+        for i in range(predictions):
+            if(predictions[i]!='Good'):
+                score+=1
+        print("predictions = ",predictions)
+        print("score = ",score)
+        return score/8*100
+        # lib_row.append(distance)
+        # lib_col.append(count/len(newarray))
+        # lib_heigh.append(relation)
+        # plt.show()
     return random.randint(0, 100)
 
 # In[ ]:
