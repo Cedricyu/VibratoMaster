@@ -287,7 +287,7 @@ lib_col = []
 lib_row = []
 lib_heigh = []
 
-files = librosa.util.find_files("Downloads/抖音txt/Good",
+files = librosa.util.find_files("抖音txt/Good",
                                 ext=['txt']) 
 files = np.asarray(files)  
 
@@ -870,7 +870,7 @@ def test():
         distance = dtw(tmp,predict,window=2)
         relation = similarity(predict - base,tmp - base)
         print("dtw = ",distance)
-        
+        count/=3
         print("turn_points = ",count/len(newarray))
         print("relation = ",relation)
         # test = pd.DataFrame(columns =  ["distance", "turn_point", "relation" ,"label"])
@@ -883,7 +883,7 @@ def test():
         print("Ytest = ",Y_test)
         predictions  = neigh.predict(X_test)
         score = 0 
-        for i in range(predictions):
+        for i in range(len(predictions)):
             if(predictions[i]!='Good'):
                 score+=1
         print("predictions = ",predictions)

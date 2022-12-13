@@ -92,12 +92,12 @@ def feedback():
     global scoreLin
     global scoreHarm
 
-    # scoreWav = WavePattern.test()
-    # scoreLin = linReg.linR()
-    # scoreHarm = HarmRatioClf.hrc()
-    scoreWav = 0
-    scoreLin = 0
-    scoreHarm = 0
+    scoreWav = WavePattern.test()
+    scoreLin = linReg.linR()
+    scoreHarm = HarmRatioClf.hrc()
+    # scoreWav = 0
+    # scoreLin = 0
+    # scoreHarm = 0
 	
     if(scoreWav + scoreHarm + scoreLin < 100 ):
         return render_template('good.html')
