@@ -11,9 +11,7 @@ import seaborn as sns
 from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
-
-
-
+from octave import scale
 # y, sr, f0, mu, sigma
 y = []
 sr = []
@@ -100,57 +98,57 @@ regr.fit(mu[:,np.newaxis], sigma)
 # user input
 def linR():
     #-------------------------------------------------------------------------------------------------------
-    y_test, sr_test = librosa.load('Good_test/A4_Good_2.wav')
-    f0_test, voiced_flag_test, voiced_probs_test = librosa.pyin(y_test, 
-    fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
-
-    f0_test = [i for i in f0_test if (i > 0)]
-    f0_test = np.array(f0_test)
-    f0_test = f0_test[~np.isnan(f0_test)]
-
-    f0_note_test = [] # to note (A4-A5)
-    for i in range(len(f0_test)):
-        f0_note_test.append(librosa.hz_to_note(f0_test[i]))
-
-    note_cnt_test = np.array([0,0,0,0,0,0,0,0]) # A4 B4 C5 D5 E5 F5 G#5 A5
-    for i in range(len(f0_note_test)):
-        if(f0_note_test[i] == 'A4'):
-            note_cnt_test[0]+=1
-        elif(f0_note_test[i] == 'B4'):
-            note_cnt_test[1]+=1
-        elif(f0_note_test[i] == 'C5'):
-            note_cnt_test[2]+=1
-        elif(f0_note_test[i] == 'D5'):
-            note_cnt_test[3]+=1
-        elif(f0_note_test[i] == 'E5'):
-            note_cnt_test[4]+=1
-        elif(f0_note_test[i] == 'F5'):
-            note_cnt_test[5]+=1
-        elif(f0_note_test[i] == 'G♯5'):
-            note_cnt_test[6]+=1
-        elif(f0_note_test[i] == 'A5'):
-            note_cnt_test[7]+=1
-
-    true_note_test = np.argmax(note_cnt_test)
-    if(true_note_test == 0):
-        true_pitch_test = librosa.note_to_hz('A4')
-    elif(true_note_test == 1):
-        true_pitch_test = librosa.note_to_hz('B4')
-    elif(true_note_test == 2):
-        true_pitch_test = librosa.note_to_hz('C5')
-    elif(true_note_test == 3):
-        true_pitch_test = librosa.note_to_hz('D5')
-    elif(true_note_test == 4):
-        true_pitch_test = librosa.note_to_hz('E5')
-    elif(true_note_test == 5):
-        true_pitch_test = librosa.note_to_hz('F5')
-    elif(true_note_test == 6):
-        true_pitch_test = librosa.note_to_hz('G♯5')
-    elif(true_note_test == 7):
-        true_pitch_test = librosa.note_to_hz('A5')
-
-    f0_test = [i for i in f0_test if (i > true_pitch_test - 20 and i < true_pitch_test + 20)]
-    f0_test = np.array(f0_test)
+    #y_test, sr_test = librosa.load('Good_test/A4_Good_2.wav')
+    #f0_test, voiced_flag_test, voiced_probs_test = librosa.pyin(y_test, 
+    #fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
+    #
+    #f0_test = [i for i in f0_test if (i > 0)]
+    #f0_test = np.array(f0_test)
+    #f0_test = f0_test[~np.isnan(f0_test)]
+#
+    #f0_note_test = [] # to note (A4-A5)
+    #for i in range(len(f0_test)):
+    #    f0_note_test.append(librosa.hz_to_note(f0_test[i]))
+#
+    #note_cnt_test = np.array([0,0,0,0,0,0,0,0]) # A4 B4 C5 D5 E5 F5 G#5 A5
+    #for i in range(len(f0_note_test)):
+    #    if(f0_note_test[i] == 'A4'):
+    #        note_cnt_test[0]+=1
+    #    elif(f0_note_test[i] == 'B4'):
+    #        note_cnt_test[1]+=1
+    #    elif(f0_note_test[i] == 'C5'):
+    #        note_cnt_test[2]+=1
+    #    elif(f0_note_test[i] == 'D5'):
+    #        note_cnt_test[3]+=1
+    #    elif(f0_note_test[i] == 'E5'):
+    #        note_cnt_test[4]+=1
+    #    elif(f0_note_test[i] == 'F5'):
+    #        note_cnt_test[5]+=1
+    #    elif(f0_note_test[i] == 'G♯5'):
+    #        note_cnt_test[6]+=1
+    #    elif(f0_note_test[i] == 'A5'):
+    #        note_cnt_test[7]+=1
+#
+    #true_note_test = np.argmax(note_cnt_test)
+    #if(true_note_test == 0):
+    #    true_pitch_test = librosa.note_to_hz('A4')
+    #elif(true_note_test == 1):
+    #    true_pitch_test = librosa.note_to_hz('B4')
+    #elif(true_note_test == 2):
+    #    true_pitch_test = librosa.note_to_hz('C5')
+    #elif(true_note_test == 3):
+    #    true_pitch_test = librosa.note_to_hz('D5')
+    #elif(true_note_test == 4):
+    #    true_pitch_test = librosa.note_to_hz('E5')
+    #elif(true_note_test == 5):
+    #    true_pitch_test = librosa.note_to_hz('F5')
+    #elif(true_note_test == 6):
+    #    true_pitch_test = librosa.note_to_hz('G♯5')
+    #elif(true_note_test == 7):
+    #    true_pitch_test = librosa.note_to_hz('A5')
+#
+    #f0_test = [i for i in f0_test if (i > true_pitch_test - 20 and i < true_pitch_test + 20)]
+    #f0_test = np.array(f0_test)
     
     
     """
@@ -178,16 +176,32 @@ def linR():
     regr = linear_model.LinearRegression()
     regr.fit(mu_test.reshape(-1,1), sigma_test)
     """
-    if len(f0_test) == 0:
-        print("Invalid input. Please try again.")
-        return 0
-    else:
-        res = f0_test.std() - regr.predict([[f0_test.mean()]])
-        if abs(res) < 0.5:
-            print("Good")
+
+
+    
+    #if len(f0_test) == 0:
+    #    print("Invalid input. Please try again.")
+    #    return 0
+    #else:
+    #    res = f0_test.std() - regr.predict([[f0_test.mean()]])
+    #    if abs(res) < 0.5:
+    #        print("Good")
+    #    else:
+    #        print("Thumb")
+    #    return res
+    scale = np.array(scale)
+    score = []
+    for i in range(len(scale)):
+        if len(scale[i]) == 0:
+            print("Invalid input. Please try again.")
+            score.append(0)
         else:
-            print("Thumb")
-        return res
+            res = scale[i].std() - regr.predict([[scale[i].mean()]])
+            if abs(res) < 0.5:
+                print("Good")
+            else:
+                print("Thumb")
+            score.append(res)
 #----------------------------------------------------------------------
 
 
