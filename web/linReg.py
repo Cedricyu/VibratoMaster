@@ -202,6 +202,7 @@ def linR():
             else:
                 print("Thumb")
             score.append(res)
+    return score 
 #----------------------------------------------------------------------
 
 
