@@ -176,19 +176,13 @@
 
             let audioCtx = new AudioContext();
             /** 发声 */
+            function ExecPythonCommand(pythonCommand){
+                var request = new XMLHttpRequest()
+                request.open("GET", "/" + pythonCommand, true)
+                request.send()
+            }
             let playsound = () => {
-                let oscillator = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.type = 'triangle';
-                oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
-                oscillator.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 0.1);
-                gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-                gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.01);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.5);
+                ExecPythonCommand('play_sound()');
             }
         });
     </script>
@@ -197,9 +191,8 @@
 <body style="background-image: url('static/img/bgimg.jpg'); background-repeat: no-repeat; background-size: cover  ">
 
     <header>練習</header>
-    <div class="element" style="margin-bottom: 3 rem;">
-        <img width="320" height="300" src="{{ url_for('static', filename='img/longbow2.gif') }}"></img>
-    </div>
+
+    <img width="320" height="300" src="{{ url_for('static', filename='img/longbow2.gif') }}"></img>
     <section>
         <button id="btnTest">節拍測速</button>
         <div id="msg"></div>

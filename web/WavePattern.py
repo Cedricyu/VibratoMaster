@@ -894,7 +894,7 @@ def test():
         # lib_heigh.append(relation)
         # plt.show()
     return random.randint(0, 100)
-
+test()
 # In[ ]:
 
 
