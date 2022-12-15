@@ -98,15 +98,20 @@ regr.fit(mu[:,np.newaxis], sigma)
 # user input
 def linR():
     from octave import scale
+    score = 0
     print("lenscale",len(scale))
     for i in range(len(scale)):
         arr = np.array(scale[i])
-        score = 0
+        # plt.plot(arr)
+        # plt.show()
         if len(arr) == 0:
             print("Invalid input. Please try again.")
         else:
-            res = arr[i].std() - regr.predict([[arr[i].mean()]])
-            if abs(res) < 0.5:
+            res = arr.std() - regr.predict([[arr.mean()]])
+            # print("std ", arr.std())
+            # print("predict ", regr.predict([[arr.mean()]]))
+            # print("res ",res)
+            if abs(res) < 0.7:
                 print("Good")
             else:
                 print("Thumb")

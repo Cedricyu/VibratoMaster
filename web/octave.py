@@ -1,6 +1,6 @@
 import librosa
 
-y, sr = librosa.load('a_minor_9.wav')
+y, sr = librosa.load('a_minor_0.wav')
 f0, voiced_flag, voiced_probs = librosa.pyin(y, 
 fmin=librosa.note_to_hz('G4'),fmax=librosa.note_to_hz('B5'))
 
