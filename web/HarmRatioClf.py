@@ -270,7 +270,7 @@ clf.fit(X, label)
 # user input
 def hrc():
     #-----------------------------------------------------------------------------------
-    y_test, sr_test = librosa.load('a_minir_1.wav')
+    y_test, sr_test = librosa.load('a_minor_9.wav')
     f0_test, voiced_flag_test, voiced_probs_test = librosa.pyin(y_test, 
     fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
 
@@ -389,10 +389,12 @@ def hrc():
         for h in range(8):
             for i in range(6):
                 seq_test[h][i] = 20*np.log10(seq_test[h][i])
-
+        count =0
         for i in range(8):
+            if(clf.predict([seq_test[i]]) != "Good"):
+                count+=1
             print(clf.predict([seq_test[i]]))
-        return round(random(), 2)
+        return count
 #-------------------------------------------------------------------
 
 hrc()

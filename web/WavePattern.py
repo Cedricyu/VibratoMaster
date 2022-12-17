@@ -612,7 +612,7 @@ def test():
         Y_test = test[['label']]
         print("Ytest = ",Y_test)
         # predictions  = neigh.predict(X_test)
-        predictions = clf.predict(X_test)
+        predictions = neigh.predict(X_test)
         score = 0 
 
         for i in range(len(predictions)):
@@ -623,12 +623,12 @@ def test():
         print("predictions = ",predictions)
         # print("predictions2", predictions2)
         print("score = ",score)
-        return score/8*100
+        return score
         # lib_row.append(distance)
         # lib_col.append(count/len(newarray))
         # lib_heigh.append(relation)
         # plt.show()
-    return random.randint(0, 100)
+    return random.randint(0, 5)
 test()
 # In[ ]:
 

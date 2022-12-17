@@ -88,11 +88,11 @@ def feedback():
     scoreWav = WavePattern.test()
     scoreLin = linReg.linR()
     scoreHarm = HarmRatioClf.hrc()
-    scoreWav = 0
-    scoreLin = 0
-    scoreHarm = 0
+    # scoreWav = 0
+    # scoreLin = 0
+    # scoreHarm = 0
 	
-    if(scoreWav + scoreHarm + scoreLin < 100 ):
+    if( scoreWav + scoreHarm + scoreLin < 7 ):
         return render_template('good.html')
 
     return render_template('feedback.html', score = scoreWav, scoreLin = scoreLin, scoreHarm = scoreHarm)

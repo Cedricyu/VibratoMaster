@@ -41,6 +41,15 @@ margin-bottom: 1rem;
 margin-right: auto;
 }
 
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 </style>
 <body>
   
@@ -57,9 +66,23 @@ margin-right: auto;
 	<font size="3" >一音一弓，一弓四拍</font>
 </div>
 </div>
-<div class="container text-right" style="padding: 40px; margin-bottom: 20px;">
+<div class ="row justify-content-center">
+<button id="btnPlay">
+  <svg style="width: 32px; height: 32px;vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M196.394461 103.235223 196.394461 920.764777 827.604516 535.079648Z"></path>
+  </svg>
+</button>
+<button id="btnStop">
+  <svg style="width: 32px; height: 32px;vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M256 256l512 0 0 512-512 0z"></path>
+  </svg>
+</button>
+</div>
+<div class="container text-center" style="padding: 40px; margin-bottom: 20px;">
 	<div>
-		<button  type="button" onclick=" ExecPythonCommand('record()'); start_play()">
+		<button  type="button" onclick=" ExecPythonCommand('record()'); start_play() ">
 		<font size="3" style="text-decoration:underline; text-align:right">開始練習</font>
 		</button>
 	</div>
@@ -70,6 +93,7 @@ margin-right: auto;
 		</a>
 	</div>
 </div>
+
 <div class="previous" style="padding:1 rem;">
 	<a href="javascript:history.back()">&laquo;回上一頁</a>
 	<!-- <a href="/player?set=3"><img src="{{ url_for('static', filename='img/3.png') }}"></a> -->
@@ -144,5 +168,54 @@ function start_play() {
   image.src = animations;
  
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  let speed = 60, //节拍速度
+  arrClick = [],  //测速时每次点击的速度组成的数组，节拍速度取其平均值
+  clickTime = 0,  //测速点击计时器，超过 3 秒清空数组
+  s = Date.now(), //记录每一次点击的时间，下一次点击时与此时间的间隔，来计算速度
+  time = 0,   //play 过程 timeout 变量
+  isPlay = false, //是否正在播放
+  speedMsg = document.getElementById("speed"),    //页面正中间显示速度值的元素
+  rangeValue = document.getElementById("rangeValue"), //滑块元素
+  showSpeed = () => rangeValue.value = speedMsg.innerText = speed; 
+
+  function ExecPythonCommand(pythonCommand){
+    var request = new XMLHttpRequest()
+    request.open("GET", "/" + pythonCommand, true)
+    request.send()
+  }
+
+  let playsound = () => {
+    ExecPythonCommand('play_sound()');
+  } 
+  document.getElementById("btnPlay").addEventListener("click", function () {
+    isPlay = true;
+    console.log("clicked")
+    play();
+    this.style.display = "none";
+    document.getElementById("btnStop").style.display = "inline-block";
+    //start_play()
+  });
+
+
+  document.getElementById("btnStop").addEventListener("click", function () {
+    window.clearTimeout(time);
+    isPlay = false;
+    this.style.display = "none";
+    document.getElementById("btnPlay").style.display = "inline-block";
+    stop_play();
+  });
+
+  let play = () => {
+    window.clearTimeout(time);
+    playsound();
+    if (isPlay){
+        time = window.setTimeout(play, Math.floor(60000 / speed));
+    }
+  };
+})
 </script>
 

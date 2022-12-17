@@ -61,20 +61,20 @@ margin-bottom: 1rem;
 <div style="margin-bottom: 4rem">
 
 <font size ="5">	
-{{ score}}
+關節問題： {{ score *10}}%
 </font>
 </div>
 <div style="margin-bottom: 4rem">
 
 	<font size ="5">	
-	{{ scoreLin}}
+	大拇指問題：{{ scoreLin *10}}%
 	</font>
 	</div>
 
 	<div style="margin-bottom: 4rem">
 
 		<font size ="5">	
-		{{ scoreHarm}}
+		 指尖問題：{{ scoreHarm *10}}%
 		</font>
 		</div>
 <!-- <div style="margin-bottom: 4rem">
@@ -88,10 +88,10 @@ margin-bottom: 1rem;
 <div class="container text-right" style="padding: 40px; margin-bottom: 20px;">
 	
 </div>
-<div class="previous" style="margin-bottom:1 rem;">
+<button  type="button" style="margin-bottom:1 rem;">
 	<a href="javascript:history.back()">&laquo;再拉一次</a>
 	<!-- <a href="/player?set=3"><img src="{{ url_for('static', filename='img/3.png') }}"></a> -->
-</div>
+</button>
 
 <div>
 	<a href="/menu">  回主選單 </a>
