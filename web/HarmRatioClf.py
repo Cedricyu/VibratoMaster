@@ -270,7 +270,7 @@ clf.fit(X, label)
 # user input
 def hrc():
     #-----------------------------------------------------------------------------------
-    y_test, sr_test = librosa.load('Good_test/A4_Good_2.wav')
+    y_test, sr_test = librosa.load('a_minir_1.wav')
     f0_test, voiced_flag_test, voiced_probs_test = librosa.pyin(y_test, 
     fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
 
@@ -355,44 +355,47 @@ def hrc():
         yf_tmp = np.array(yf_test)
         idx = np.argmax(yf_test)
 
-        # f0 must < 900
-        while (xf_test[idx] > 900):
-            for j in range(idx-1200, idx+1200):
-                xf_tmp[j] = 0
-                yf_tmp[j] = 0
-            idx = np.argmax(yf_tmp)
-
-        #re_idx = np.where(xf[i] == xf[i])
-        fund_test = np.append(fund_test, [[ xf_test[idx],yf_test[idx], idx ]], axis=0)
+        std_note = [440.0, 493.88, 523.25, 587.33, 659.25, 698.46, 830.61, 880.0]
+        for i in range(8):
+            idx = (np.abs(xf_tmp - std_note[i])).argmin()
+            fund_test = np.append(fund_test, [[ xf_test[idx],yf_test[idx], idx ]], axis=0)
 
         # delete the 1st row
         fund_test = np.delete(fund_test, 0, axis=0)
 
 
         # get the next 5 harmonics & their amplitude
-        for i in range(5):
-            idx = int(fund_test[0][2]) * (i+2)
-            harm_test = np.append(harm_test, [[ xf_test[idx], yf_test[idx], idx ]], axis=0)
+        for h in range(8):
+            for i in range(5):
+                idx = int(fund_test[h][2]) * (i+2)
+                harm_test = np.append(harm_test, [[ xf_test[idx], yf_test[idx], idx ]], axis=0)
+
         # delete the 1st row
         harm_test = np.delete(harm_test, 0, axis=0)
 
-        seq_test = np.array([[ fund_test[0][1], harm_test[0][1], harm_test[1][1], 
-                                    harm_test[2][1], harm_test[3][1], harm_test[4][1] ]])
+
+        seq_test = np.array([[0, 0, 0, 0, 0, 0]])
+        for i in range(8):
+            seq_test = np.append(seq_test, [[ fund_test[i][1], harm_test[i*5][1], harm_test[i*5 + 1][1], 
+                                harm_test[i*5 + 2][1], harm_test[i*5 + 3][1], harm_test[i*5 + 4][1] ]], axis=0)
+
+        seq_test = np.delete(seq_test, 0, axis=0)
 
 
         # Normalize
-        for i in range(6):
-            seq_test[0][i] /= min(seq_test[0])
+        for h in range(8):
+            for i in range(6):
+                seq_test[h][i] /= min(seq_test[h])
+        for h in range(8):
+            for i in range(6):
+                seq_test[h][i] = 20*np.log10(seq_test[h][i])
 
-        for i in range(6):
-                seq_test[0][i] = 20*np.log10(seq_test[0][i])
-
-
-        print(clf.predict(seq_test))
+        for i in range(8):
+            print(clf.predict([seq_test[i]]))
         return round(random(), 2)
 #-------------------------------------------------------------------
 
-
+hrc()
 """
 #-------------------------------------------------------------------
 # Good test
