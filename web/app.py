@@ -2,10 +2,10 @@ from flask import Flask, Response, request
 from flask import render_template, redirect
 from pythonosc.udp_client import SimpleUDPClient
 from record import record
-
-import WavePattern 
-import linReg
-import HarmRatioClf
+from Metronome import play_sound
+# import WavePattern 
+# import linReg
+# import HarmRatioClf
 
 
 # def send_osc_msg():
@@ -38,6 +38,16 @@ def command(FUNCTION=None):
     exec(FUNCTION.replace("<br>", "\n"))
     return ""
 
+
+# @app.route('/playSound')
+# def playSound():
+#     import simpleaudio, time 
+#     strong_beat = simpleaudio.WaveObject.from_wave_file('metronome.wav')
+#     global play
+#     play = not play
+#     while play:
+#         strong_beat.play()
+#         time.sleep(0.25)
 
 @app.route('/player')
 def player():
@@ -92,9 +102,9 @@ def feedback():
     global scoreLin
     global scoreHarm
 
-    scoreWav = WavePattern.test()
-    scoreLin = linReg.linR()
-    scoreHarm = HarmRatioClf.hrc()
+    # scoreWav = WavePattern.test()
+    # #scoreLin = linReg.linR()
+    # scoreHarm = HarmRatioClf.hrc()
     # scoreWav = 0
     # scoreLin = 0
     # scoreHarm = 0

@@ -10,8 +10,6 @@
 <style>
 
 img{
-
-
   object-fit: cover;
   width: 100%;
 }
@@ -22,15 +20,15 @@ div.element {
 
 }
 .box{
-width: 200px;
-height: 200px;
-border: 1px solid black;
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-background-color: antiquewhite;
-padding: 70px 0;
-margin-bottom: 1rem;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: antiquewhite;
+  padding: 70px 0;
+  margin-bottom: 1rem;
 }
 
 .previous {
@@ -39,8 +37,7 @@ margin-bottom: 1rem;
   text-align: center;
   width: 80px;
   margin-left: auto;
-margin-right: auto;
-
+  margin-right: auto;
 }
 </style>
 <body>
@@ -60,32 +57,17 @@ margin-right: auto;
 	<font size="3" >一音一弓，一弓四拍</font>
 </div>
 <div style="margin-bottom: 3 rem;">
-	<a href = "/prac">
-	<font size="3" style="text-decoration:underline;">開始練習</font>
+	<a   onclick="ExecPythonCommand('play_sound()')">
+	<font size="3" style="text-decoration:underline;" >開始練習</font>
 	</a>
 </div>
 <div class="element">
 <div class="previous">
 	<a href="javascript:history.back()">&laquo;回上一頁</a>
-	<!-- <a href="/player?set=3"><img src="{{ url_for('static', filename='img/3.png') }}"></a> -->
 </div>
 </div>
-
-	<!--
-	<a href="player.html"><img src="{{ url_for('static', filename='img/4.png') }}"></a>
-	-->
-
-	<!--
-
-    <img src="{{ url_for('static', filename='img/1.png') }}">
-    <img src="{{ url_for('static', filename='img/2.png') }}">
-    <img src="{{ url_for('static', filename='img/3.png') }}">
-
-	-->
-
 	  <hr class="my-4">
-
-  </div>
+</div>
 
 </body>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -95,7 +77,11 @@ margin-right: auto;
 
 
 <script>
-	
+	function ExecPythonCommand(pythonCommand){
+    var request = new XMLHttpRequest()
+    request.open("GET", "/" + pythonCommand, true)
+    request.send()
+}
 
 
 </script>
