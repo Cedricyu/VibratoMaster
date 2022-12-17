@@ -3,9 +3,9 @@ from flask import render_template, redirect
 from pythonosc.udp_client import SimpleUDPClient
 from record import record
 from Metronome import play_sound
-# import WavePattern 
-# import linReg
-# import HarmRatioClf
+import WavePattern 
+import linReg
+import HarmRatioClf
 
 
 # def send_osc_msg():
@@ -39,24 +39,7 @@ def command(FUNCTION=None):
     return ""
 
 
-# @app.route('/playSound')
-# def playSound():
-#     import simpleaudio, time 
-#     strong_beat = simpleaudio.WaveObject.from_wave_file('metronome.wav')
-#     global play
-#     play = not play
-#     while play:
-#         strong_beat.play()
-#         time.sleep(0.25)
 
-@app.route('/player')
-def player():
-
-    #page = request.args.get('page', default = 1, type = int)
-    set_name = request.args.get('set', default = '*', type = str)
-    print(set_name)
-
-    return render_template('player.html', set_name = set_name) 
 @app.route('/menu')
 def menu():
 
@@ -102,12 +85,12 @@ def feedback():
     global scoreLin
     global scoreHarm
 
-    # scoreWav = WavePattern.test()
-    # #scoreLin = linReg.linR()
-    # scoreHarm = HarmRatioClf.hrc()
-    # scoreWav = 0
-    # scoreLin = 0
-    # scoreHarm = 0
+    scoreWav = WavePattern.test()
+    scoreLin = linReg.linR()
+    scoreHarm = HarmRatioClf.hrc()
+    scoreWav = 0
+    scoreLin = 0
+    scoreHarm = 0
 	
     if(scoreWav + scoreHarm + scoreLin < 100 ):
         return render_template('good.html')
