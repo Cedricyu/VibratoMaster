@@ -92,7 +92,7 @@ def feedback():
     # scoreLin = 0
     # scoreHarm = 0
 	
-    if( scoreWav + scoreHarm + scoreLin < 7 ):
+    if( scoreWav + scoreHarm/2 + scoreLin < 7 ):
         return render_template('good.html')
 
     return render_template('feedback.html', score = scoreWav, scoreLin = scoreLin, scoreHarm = scoreHarm)

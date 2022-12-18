@@ -270,7 +270,7 @@ clf.fit(X, label)
 # user input
 def hrc():
     #-----------------------------------------------------------------------------------
-    y_test, sr_test = librosa.load('a_minor_9.wav')
+    y_test, sr_test = librosa.load('a_minor_0.wav')
     f0_test, voiced_flag_test, voiced_probs_test = librosa.pyin(y_test, 
     fmin=librosa.note_to_hz('G4'), fmax=librosa.note_to_hz('B5'))
 
@@ -397,7 +397,8 @@ def hrc():
         return count
 #-------------------------------------------------------------------
 
-hrc()
+#
+# hrc()
 """
 #-------------------------------------------------------------------
 # Good test
